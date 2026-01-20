@@ -22,7 +22,5 @@ test('writing table elements', async ({ page }) => {
             const tdata = await curr_cell.nth(j).textContent();
             console.log(tdata)
         }
-
-
     }
 });
