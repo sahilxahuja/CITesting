@@ -1,5 +1,0 @@
-This is a text file
-Updated this file as 
-Again Updated
-New things again to create conflict.
-Creating conflict
