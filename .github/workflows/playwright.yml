@@ -19,6 +19,15 @@ jobs:
       run: npx playwright install --with-deps
     - name: Run Playwright tests
       run: npx playwright test
+
+    - name: Run Smoke Tests
+      if: github.event_name == 'pull_request'
+      run: npm run smoke
+
+    - name: Run Regression Tests
+      if: github.event_name == 'push'
+      run: npm run smoke
+
     - uses: actions/upload-artifact@v4
       if: ${{ !cancelled() }}
       with:
