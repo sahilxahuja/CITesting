@@ -7,5 +7,6 @@ test('Check GoogleHomePage', async({browser}) => {
   const page = await context.newPage();
   
   await page.goto('https://www.google.com'); 
+  await expect(page).toHaveTitle('Google');
 
 })
