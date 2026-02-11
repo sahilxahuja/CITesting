@@ -66,7 +66,7 @@ test('Check rows where CPU usage is above 3%', async ({ page }) => {
     const headers = table.locator('thead tr th');
     const rows = table.locator('tbody tr');
 
-    // 1️⃣ Find CPU column index dynamically
+    // Find CPU column index dynamically
     let cpuColIndex = -1;
     const headerCount = await headers.count();
 
@@ -80,7 +80,7 @@ test('Check rows where CPU usage is above 3%', async ({ page }) => {
 
     expect(cpuColIndex).not.toBe(-1);
 
-    // 2️⃣ Loop through rows and check CPU %
+    //  Loop through rows and check CPU %
     const rowCount = await rows.count();
 
     for (let i = 0; i < rowCount; i++) {
@@ -136,24 +136,24 @@ test('From a table write the prices of products greater than 10$ ', async ({ pag
     }
 })
 
-test('DemoQA/webtables', async({page})=>{
+test('DemoQA/webtables', async ({ page }) => {
 
     await page.goto('https://demoqa.com/webtables')
 
-    const table= await page.locator('.rt-table');
+    const table = await page.locator('.rt-table');
     const rows = await table.locator('.rt-tr-group');
     const cols = await table.locator('.rt-resizable-header-content');
     const rCount = await rows.count();
     const cCount = await cols.count();
 
     console.log(`Total Rows =${rCount} , Total Coloms = ${cCount}`)
-    
-    for(let i =0; i< rCount; i++){
+
+    for (let i = 0; i < rCount; i++) {
         const curRow = rows.nth(i);
         const currCell = await curRow.locator('.rt-td').nth(4).textContent();
 
         //console.log(currCell);
-        if (currCell>2000){
+        if (currCell > 2000) {
             //Getting name of people having salary more than 2000;
             const empNames = await curRow.locator('.rt-td').nth(0).textContent();
             console.log(empNames);
@@ -163,11 +163,11 @@ test('DemoQA/webtables', async({page})=>{
 
 })
 
-test('Countries/webtables', async({page})=>{
+test('Countries/webtables', async ({ page }) => {
 
     await page.goto('https://cosmocode.io/automation-practice-webtable/')
 
-    const table= await page.locator('table');
+    const table = await page.locator('table');
     const rows = await table.locator('tbody tr');
     const cols = await table.locator('tbody tr td h3');
     const rCount = await rows.count();
@@ -175,20 +175,47 @@ test('Countries/webtables', async({page})=>{
     console.log(`Total Rows =${rCount} , Total Coloms = ${cCount}`)
     let count = 1;
 
-    for (let i =1; i<rCount; i++){
+    for (let i = 1; i < rCount; i++) {
         const curRow = await rows.nth(i);
         const curCell = await curRow.locator('td').nth(3).textContent();
-  
-        if(curCell === 'Euro'){
-            
+
+        if (curCell === 'Euro') {
+
             // Country using Euro as currency
-            const countries = await curRow.locator('td').nth(1).textContent();            
+            const countries = await curRow.locator('td').nth(1).textContent();
             console.log(`Country using Euro as currency is ${countries}`)
             count++;
         }
-        
+
 
     }
     console.log(`Total Countries ${count}`)
+
+})
+
+test('Webtable test', async ({ page }) => {
+
+    await page.goto('https://demoqa.com/webtables')
+
+    const table = await page.locator('.rt-table');
+    const rows = await table.locator('.rt-tr-group');
+    const cols = await table.locator('.rt-resizable-header-content');
+    const rCount = await rows.count();
+    const cCount = await cols.count();
+
+    console.log(`${rCount} & ${cCount}`);
+
+    for (let i =0; i<rCount;-i++){
+
+        const row_Active = await rows.nth(i);
+        const cell_Active = await row_Active.locator('.rt-td');
+
+        for(let j=0;j<await cell_Active.count()-1;j++){
+
+            console.log(await cell_Active.nth(j).textContent());
+
+        }
+
+    }
 
 })
